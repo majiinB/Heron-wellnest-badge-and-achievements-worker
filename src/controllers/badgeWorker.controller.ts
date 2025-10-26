@@ -13,7 +13,7 @@ interface PubSubMessage {
 }
 
 interface ActivityPayload {
-  eventType: 'JOURNAL_ENTRY_CREATED' | 'FLIP_FEEL_ENTRY_CREATED' | 'MOOD_CHECKIN_CREATED' | 'GRATITUDE_ENTRY_CREATED';
+  eventType: 'JOURNAL_ENTRY_CREATED' | 'FLIP_FEEL_ENTRY_CREATED' | 'MOOD_ENTRY_CREATED' | 'GRATITUDE_ENTRY_CREATED';
   userId: string;
   checkInId?: string;
   timestamp: string;
@@ -115,7 +115,7 @@ export class BadgeWorkerController {
           await this.badgeWorkerService.flipAndFeelBadgeWorker(payload.userId);
           break;
 
-        case 'MOOD_CHECKIN_CREATED':
+        case 'MOOD_ENTRY_CREATED':
           await this.badgeWorkerService.moodBadgeWorker(payload.userId);
           break;
 
