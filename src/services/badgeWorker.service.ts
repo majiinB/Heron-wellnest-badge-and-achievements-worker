@@ -1,9 +1,11 @@
+import { env } from "../config/env.config.js";
 import type { BadgesRepository } from "../repository/badges.repository.js";
 import type { FlipFeelRepository } from "../repository/flipFeel.repository.js";
 import type { GratitudeEntryRepository } from "../repository/gratitudeEntry.repository.js";
 import type { JournalEntryRepository } from "../repository/journalEntry.repository.js";
 import type { MoodCheckInRepository } from "../repository/moodCheckIn.repository.js";
 import type { ApiResponse } from "../types/apiResponse.type.js";
+import { publishMessage } from "../utils/pubsub.util.js";
 
 export type CategoryEnum = "school" | "opposite_sex" | "peers" | "family" | "crises" | "emotions" | "recreation";
 
@@ -91,6 +93,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.JOURNAL_FIRST_ENTRY)) {
         if (await this.journalRepo.hasFirstEntry(userId)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.JOURNAL_FIRST_ENTRY);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.JOURNAL_FIRST_ENTRY}!`,
+            content: "Congratulations on writing your first journal entry! This badge marks the start of your mindfulness journey. Keep it up to earn more badges and deepen your self-reflection practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -98,6 +110,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.JOURNAL_3_STREAK)) {
         if (await this.journalRepo.hasConsecutiveDays(userId, 3)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.JOURNAL_3_STREAK);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.JOURNAL_3_STREAK}!`,
+            content: "Congratulations on maintaining a 3-day journaling streak! This badge recognizes your commitment to self-reflection and mindfulness. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -105,6 +127,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.JOURNAL_7_STREAK)) {
         if (await this.journalRepo.hasConsecutiveDays(userId, 7)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.JOURNAL_7_STREAK);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.JOURNAL_7_STREAK}!`,
+            content: "Congratulations on maintaining a 7-day journaling streak! This badge recognizes your commitment to self-reflection and mindfulness. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -112,6 +144,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.JOURNAL_10_ENTRIES)) {
         if (await this.journalRepo.hasReachedEntryCount(userId, 10)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.JOURNAL_10_ENTRIES);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.JOURNAL_10_ENTRIES}!`,
+            content: "Congratulations on writing 10 journal entries! This badge recognizes your commitment to self-reflection and mindfulness. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -119,6 +161,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.JOURNAL_20_ENTRIES)) {
         if (await this.journalRepo.hasReachedEntryCount(userId, 20)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.JOURNAL_20_ENTRIES);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.JOURNAL_20_ENTRIES}!`,
+            content: "Congratulations on writing 20 journal entries! This badge recognizes your commitment to self-reflection and mindfulness. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -126,6 +178,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.JOURNAL_30_ENTRIES)) {
         if (await this.journalRepo.hasReachedEntryCount(userId, 30)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.JOURNAL_30_ENTRIES);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.JOURNAL_30_ENTRIES}!`,
+            content: "Congratulations on writing 30 journal entries! This badge recognizes your commitment to self-reflection and mindfulness. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
     } catch (error) {
@@ -144,6 +206,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.FLIP_AND_FEEL_FIRST)) {
         if (await this.flipFeelRepo.hasFirstEntry(userId)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.FLIP_AND_FEEL_FIRST);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.FLIP_AND_FEEL_FIRST}!`,
+            content: "Congratulations on completing your first flip and feel entry! This badge recognizes your commitment to self-reflection and mindfulness. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -152,6 +224,16 @@ export class BadgeWorkerService {
         const validCategories: CategoryEnum[] = ["school", "opposite_sex", "peers", "family", "crises", "emotions", "recreation"];
         if (await this.flipFeelRepo.hasCompletedAllCategories(userId, validCategories)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.FLIP_AND_FEEL_ALL_CATEGORIES);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.FLIP_AND_FEEL_ALL_CATEGORIES}!`,
+            content: "Congratulations on completing entries in all categories! This badge recognizes your comprehensive approach to self-reflection and mindfulness. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -159,6 +241,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.FLIP_AND_FEEL_7_STREAK)) {
         if (await this.flipFeelRepo.hasConsecutiveDays(userId, 7)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.FLIP_AND_FEEL_7_STREAK);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.FLIP_AND_FEEL_7_STREAK}!`,
+            content: "Congratulations on maintaining a 7-day streak! This badge recognizes your consistency in self-reflection and mindfulness. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
     } catch (error) {
@@ -177,6 +269,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.MOOD_CHECKIN_7_STREAK)) {
         if (await this.moodRepo.hasConsecutiveDays(userId, 7)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.MOOD_CHECKIN_7_STREAK);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.MOOD_CHECKIN_7_STREAK}!`,
+            content: "Congratulations on maintaining a 7-day streak! This badge recognizes your consistency in mood tracking. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -184,6 +286,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.MOOD_CHECKIN_14_STREAK)) {
         if (await this.moodRepo.hasConsecutiveDays(userId, 14)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.MOOD_CHECKIN_14_STREAK);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.MOOD_CHECKIN_14_STREAK}!`,
+            content: "Congratulations on maintaining a 14-day streak! This badge recognizes your dedication to mood tracking. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
     } catch (error) {
@@ -202,6 +314,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.GRATITUDE_FIRST_ENTRY)) {
         if (await this.gratitudeRepo.hasFirstEntry(userId)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.GRATITUDE_FIRST_ENTRY);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.GRATITUDE_FIRST_ENTRY}!`,
+            content: "Congratulations on your first gratitude entry! This badge recognizes your commitment to acknowledging the good in your life. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -209,6 +331,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.GRATITUDE_10_ENTRIES)) {
         if (await this.gratitudeRepo.hasReachedEntryCount(userId, 10)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.GRATITUDE_10_ENTRIES);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.GRATITUDE_10_ENTRIES}!`,
+            content: "Congratulations on reaching 10 gratitude entries! This badge recognizes your dedication to appreciating the positive aspects of your life. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -216,6 +348,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.GRATITUDE_25_ENTRIES)) {
         if (await this.gratitudeRepo.hasReachedEntryCount(userId, 25)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.GRATITUDE_25_ENTRIES);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.GRATITUDE_25_ENTRIES}!`,
+            content: "Congratulations on reaching 25 gratitude entries! This badge recognizes your dedication to appreciating the positive aspects of your life. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -223,6 +365,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.GRATITUDE_50_ENTRIES)) {
         if (await this.gratitudeRepo.hasReachedEntryCount(userId, 50)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.GRATITUDE_50_ENTRIES);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.GRATITUDE_50_ENTRIES}!`,
+            content: "Congratulations on reaching 50 gratitude entries! This badge recognizes your dedication to appreciating the positive aspects of your life. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -230,6 +382,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.GRATITUDE_100_ENTRIES)) {
         if (await this.gratitudeRepo.hasReachedEntryCount(userId, 100)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.GRATITUDE_100_ENTRIES);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.GRATITUDE_100_ENTRIES}!`,
+            content: "Congratulations on reaching 100 gratitude entries! This badge recognizes your dedication to appreciating the positive aspects of your life. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -237,6 +399,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.GRATITUDE_3_STREAK)) {
         if (await this.gratitudeRepo.hasConsecutiveDays(userId, 3)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.GRATITUDE_3_STREAK);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.GRATITUDE_3_STREAK}!`,
+            content: "Congratulations on maintaining a 3-day gratitude streak! This badge recognizes your consistency in acknowledging the positive aspects of your life. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
 
@@ -244,6 +416,16 @@ export class BadgeWorkerService {
       if (!badgeNames.has(this.badges.GRATITUDE_7_STREAK)) {
         if (await this.gratitudeRepo.hasConsecutiveDays(userId, 7)) {
           await this.badgesRepo.grantBadgeByName(userId, this.badges.GRATITUDE_7_STREAK);
+          await publishMessage(env.PUBSUB_NOTIFICATION_TOPIC, {
+            userId: userId,
+            type: "activities",
+            title: `You have earned a new badge: ${this.badges.GRATITUDE_7_STREAK}!`,
+            content: "Congratulations on maintaining a 7-day gratitude streak! This badge recognizes your consistency in acknowledging the positive aspects of your life. Keep it up to earn more badges and deepen your practice.",
+            data: {
+              activityType: "badge-worker-activity",
+              timestamp: new Date().toISOString(),
+            },
+          });
         }
       }
     } catch (error) {

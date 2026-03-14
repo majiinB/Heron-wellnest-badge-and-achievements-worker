@@ -33,8 +33,7 @@ export const envSchema = z.object({
   DB_NAME : z.string().min(1, "DB_NAME is required").default("heron_wellnest_db"),
 
   // Pub/Sub
-  PUBSUB_JOURNAL_TOPIC: z.string().min(1, "PUBSUB_JOURNAL_TOPIC is required").default("journal-topic"),
-  PUBSUB_ACTIVITY_TOPIC: z.string().min(1, "PUBSUB_ACTIVITY_TOPIC is required").default("activity-topic"),
+  PUBSUB_NOTIFICATION_TOPIC: z.string().min(1, "PUBSUB_NOTIFICATION_TOPIC is required")
 });
 
 const parsed = envSchema.safeParse(process.env);
