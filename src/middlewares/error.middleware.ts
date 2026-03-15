@@ -44,7 +44,7 @@ export function errorMiddleware(
   } else {
     logger.error("Unexpected error", {
       message: err.message,
-      stack: env.NODE_ENV === "development" ? err.stack : undefined,
+      stack: err.stack,
     });
   }
 

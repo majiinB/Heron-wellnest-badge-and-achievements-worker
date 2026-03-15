@@ -82,13 +82,13 @@ export class BadgeWorkerController {
       // Validate envelope structure
       if (!envelope || !envelope.message) {
         logger.error('[BadgeWorker] Invalid Pub/Sub message format');
-        res.status(400).json({ error: 'Bad Request: Invalid message format' });
+        res.status(204).json({ error: 'Bad Request: Invalid message format' });
         return;
       }
 
       if (!envelope.message.data) {
         logger.error('[BadgeWorker] No data field in Pub/Sub message');
-        res.status(400).json({ error: 'Bad Request: No data field' });
+        res.status(204).json({ error: 'Bad Request: No data field' });
         return;
       }
 
@@ -99,7 +99,7 @@ export class BadgeWorkerController {
       // Validate payload
       if (!payload.eventType || !payload.userId) {
         logger.error('[BadgeWorker] Missing required fields in payload:', payload);
-        res.status(400).json({ error: 'Bad Request: Missing eventType or userId' });
+        res.status(204).json({ error: 'Bad Request: Missing eventType or userId' });
         return;
       }
 
@@ -125,7 +125,7 @@ export class BadgeWorkerController {
 
         default:
           logger.warn(`[BadgeWorker] Unknown event type: ${payload.eventType}`);
-          res.status(400).json({ error: `Unknown event type: ${payload.eventType}` });
+          res.status(204).json({ error: `Unknown event type: ${payload.eventType}` });
           return;
       }
 
