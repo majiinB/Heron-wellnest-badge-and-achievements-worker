@@ -4,7 +4,6 @@ import type { FlipFeelRepository } from "../repository/flipFeel.repository.js";
 import type { GratitudeEntryRepository } from "../repository/gratitudeEntry.repository.js";
 import type { JournalEntryRepository } from "../repository/journalEntry.repository.js";
 import type { MoodCheckInRepository } from "../repository/moodCheckIn.repository.js";
-import type { ApiResponse } from "../types/apiResponse.type.js";
 import { publishMessage } from "../utils/pubsub.util.js";
 
 export type CategoryEnum = "school" | "opposite_sex" | "peers" | "family" | "crises" | "emotions" | "recreation";
