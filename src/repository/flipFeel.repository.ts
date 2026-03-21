@@ -2,9 +2,6 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../config/datasource.config.js";
 import type { FlipFeel } from "../models/flipFeel.model.js";
 import { FlipFeelResponse } from "../models/flipFeelResponse.model.js";
-import { FlipFeelQuestions } from "../models/flipFeelQuestions.model.js";
-import { FlipFeelChoice } from "../models/flipFeelChoices.model.js";
-
 export interface ResponseInput {
   question_id: string;
   choice_id: string;
@@ -68,7 +65,7 @@ export class FlipFeelRepository {
        INNER JOIN flip_feel_questions q ON r.question_id = q.question_id
        WHERE f.user_id = $1
        AND f.finished_at IS NOT NULL
-       AND q.category = ANY($3::text[])`,
+       AND q.category::text = ANY($3::text[])`,
       [user_id, validCategories.length, validCategories]
     );
     return result[0]?.has_all_categories ?? false;
